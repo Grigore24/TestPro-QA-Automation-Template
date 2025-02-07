@@ -14,6 +14,7 @@ public class Homework1 {
         System.out.println(b);
         char c = 'R';
         System.out.println(c);
+        int d = 84;
 
     }
 }
