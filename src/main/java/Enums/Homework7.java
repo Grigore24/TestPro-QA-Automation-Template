@@ -1,6 +1,6 @@
 package Enums;
 
-public class App {
+public class Homework7 {
     public static void main(String[] args) {
         Colors nike = Colors.RED;
         System.out.println(nike);
