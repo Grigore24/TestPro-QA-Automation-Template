@@ -71,6 +71,49 @@ public class App {
         for(Map.Entry<String,String>pair : capitals.entrySet()){
             System.out.println(pair.getKey()+" "+pair.getValue());
         }
+        System.out.println("++++++++++++++");
+        //вытаскиваем ключи из хешМапа через аррай лист
+        HashMap<Integer,String>ssnAndNames = new HashMap<>();
+        ssnAndNames.put(25,"Smith");
+        ssnAndNames.put(32,"Garcia");
+        ssnAndNames.put(89,"Lukas");
+        ssnAndNames.put(71,"Petrenko");
 
+        System.out.println(ssnAndNames.containsKey(25));
+        System.out.println(ssnAndNames.containsValue("Lukas"));
+
+        ArrayList<Integer> keys = new ArrayList<>();
+        for(Integer key : ssnAndNames.keySet()){
+            keys.add(key);
+        }
+        System.out.println(keys);
+        // распечатка values через еррей лист
+        ArrayList<String> values = new ArrayList<>();
+        for(String value : ssnAndNames.values()){
+            values.add(value);
+        }
+        System.out.println(values);
+        //  добавляем цифры в   пустой HashSet digits
+        HashSet<Integer> digits = new HashSet<>();
+        for(int i = 1; i <= 10;i++){
+            digits.add(i);
+        }
+        System.out.println(digits);
+        // с сета digits распечатываем все парные значения
+        HashSet<Integer> evenDigits = new HashSet<>();
+        for(Integer number : digits){
+            if(number % 2 == 0){
+                evenDigits.add(number);
+            }
+        }
+        System.out.println(evenDigits);
+        //создаем новый хешмап и добавляем туда все значения со ssnAndNames
+        HashMap<Integer,String>names = new HashMap<>();
+        names.putAll(ssnAndNames);
+        System.out.println(names);
+        names.remove(25);
+        System.out.println(names);
+        names.put(23,"Dog");
+        System.out.println(names);
     }
 }

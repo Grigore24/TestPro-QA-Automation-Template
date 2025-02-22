@@ -1,7 +1,7 @@
 package Tasks;
 
-public class App {
-    public static void main(String[] args) {
+public class AppFibonachi {
+    public static void main(String[] args)  {
         //fibonachi
         int n = 10;//how many numbers we show on the screen
         int first = 0;
