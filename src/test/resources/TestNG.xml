@@ -16,6 +16,7 @@
             <class name="BaseTest"/>
             <class name="ProfileTests"/>
             <class name="CSVDataProviderTest"/>
+            <class name="PlayListTests"/>
             <!-- <class name="UnitTests"/> -->
         </classes>
     </test>

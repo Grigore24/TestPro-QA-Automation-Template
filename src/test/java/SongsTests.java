@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -53,12 +54,21 @@ public class SongsTests extends BaseTest {
         //step 4 find equalizer and assert
         Assert.assertTrue(isEqualizerDisplayed());
     }
+    @Test
+    public void checkVisibilityTest() {
+        logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
+        WebElement title = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("title")));
+        String text = title.getText();
+        System.out.println(text);
+        System.out.println("Is element invisible? === " + wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("title"))));
+        //WebElement title2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("title")));  // should fail
+    }
 
     //Methods addSongsToPlaylist test
     //searchForSong(); I moved to BaseTest
 
     private void clickOnViewAllButton() {
-        WebElement viewAllButton = driver.findElement(By.cssSelector("button[data-test='view-all-songs-btn']"));
+        WebElement viewAllButton = waitUntilClickable(By.cssSelector("button[data-test='view-all-songs-btn']"));
         viewAllButton.click();
     }
 
@@ -68,12 +78,12 @@ public class SongsTests extends BaseTest {
     }
 
     private void clickAddToButton() {
-        WebElement addToButton = driver.findElement(By.cssSelector(".btn-add-to"));
+        WebElement addToButton = waitUntilVisible(By.cssSelector(".btn-add-to"));
         addToButton.click();
     }
 
     private void sentNewPlaylistName(String playlistName) {
-        WebElement newPlaylistNameInput = driver.findElement(By.cssSelector("#songResultsWrapper > header  input[type=text]"));
+        WebElement newPlaylistNameInput = waitUntilClickable(By.cssSelector("#songResultsWrapper > header  input[type=text]"));
         newPlaylistNameInput.click();
         newPlaylistNameInput.clear();
         newPlaylistNameInput.sendKeys(playlistName);
@@ -83,11 +93,11 @@ public class SongsTests extends BaseTest {
                 .perform();
     }
     public boolean isPlaylistSuccessBannerDisplayed(){
-        WebElement newPlaylistSuccessBanner = driver.findElement(By.cssSelector("div[class='success show']"));
+        WebElement newPlaylistSuccessBanner = waitUntilVisible(By.cssSelector("div[class='success show']"));
         return newPlaylistSuccessBanner.isDisplayed();
     }
     public String getSongName(){
-        WebElement songName = driver.findElement(By.cssSelector("#playlistWrapper .song-item .title"));
+        WebElement songName = waitUntilVisible(By.cssSelector("#playlistWrapper .song-item .title"));
         String songText = songName.getText();
         return songText;
     }
@@ -95,18 +105,18 @@ public class SongsTests extends BaseTest {
     //Methods playSong test
 
     private void hoverClickPlayButton() {
-        WebElement buttonPlayOrResume = driver.findElement(By.cssSelector("[title='Play or resume']"));
+        WebElement buttonPlayOrResume = presenceOfElementLocated(By.cssSelector("[title='Play or resume']"));
         new Actions(driver)
                 .moveToElement(buttonPlayOrResume)
                 .perform();
         buttonPlayOrResume.click();
     }
     public boolean isPauseButtonDisplayed(){
-        WebElement pauseBtn = driver.findElement(By.cssSelector("[data-testid='pause-btn']"));
+        WebElement pauseBtn = waitUntilVisible(By.cssSelector("[data-testid='pause-btn']"));
         return pauseBtn.isDisplayed();
     }
     public boolean isEqualizerDisplayed(){
-        WebElement equalizer = driver.findElement(By.cssSelector("[alt='Sound bars']"));
+        WebElement equalizer = waitUntilVisible(By.cssSelector("[alt='Sound bars']"));
         return equalizer.isDisplayed();
     }
 }

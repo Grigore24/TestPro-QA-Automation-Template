@@ -41,13 +41,12 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void loginSuccessTest() throws InterruptedException {
+    public void loginSuccessTest() {
 
         //step 1 - Log in
         logIn("grigore.crepciuc@testpro.io","te$t$tudent22");
 
         //step 2 - Find Avatar on Mane Page and Assert
-        Thread.sleep(5000);
         Assert.assertTrue(isAvatarDisplayed());
     }
 
@@ -66,11 +65,11 @@ public class LoginTests extends BaseTest {
     //Methods
 
     public boolean isAvatarDisplayed() {
-        WebElement avatar = driver.findElement((By.cssSelector(".avatar")));
+        WebElement avatar = waitUntilClickable(By.cssSelector(".avatar"));
         return avatar.isDisplayed();
     }
     public boolean isLoginButtonDisplayed() {
-        WebElement loginButton = driver.findElement(By.cssSelector("[type='submit"));
+        WebElement loginButton = waitUntilClickable(By.cssSelector("[type='submit"));
         return loginButton.isDisplayed();
     }
     public String getLoginURL(){

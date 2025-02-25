@@ -37,37 +37,34 @@ public class ProfileTests extends BaseTest{
     //Methods
 
     private void clickOnAvatar() {
-        WebElement avatar = driver.findElement(By.cssSelector("[class = 'avatar']"));
+        WebElement avatar = waitUntilClickable(By.cssSelector("[class = 'avatar']"));
         avatar.click();
     }
     private void typeCurrentProfilePassword() {
-        WebElement currentPasswordInput = driver.findElement(By.cssSelector("#inputProfileCurrentPassword"));
+        WebElement currentPasswordInput = waitUntilClickable(By.cssSelector("#inputProfileCurrentPassword"));
         currentPasswordInput.click();
         currentPasswordInput.clear();
         currentPasswordInput.sendKeys("te$t$tudent22");
     }
     private void typeProfileName(String name) {
         System.out.println(name);
-        WebElement profileNameInput = driver.findElement(By.cssSelector("#inputProfileName"));
+        WebElement profileNameInput = waitUntilClickable(By.cssSelector("#inputProfileName"));
         profileNameInput.click();
         profileNameInput.clear();
         profileNameInput.sendKeys(name);
     }
     private void typeProfileEmail() {
-        WebElement currentEmailInput = driver.findElement(By.id("inputProfileEmail"));
+        WebElement currentEmailInput = waitUntilClickable(By.id("inputProfileEmail"));
         currentEmailInput.click();
         currentEmailInput.clear();
         currentEmailInput.sendKeys("grigore.crepciuc@testpro.io");
     }
     private void clickOnProfileSaveButton() {
-        WebElement saveButton = driver.findElement(By.cssSelector("[class='btn-submit']"));
+        WebElement saveButton = waitUntilVisible(By.cssSelector("[class='btn-submit']"));
         saveButton.click();
     }
-    private void refreshPage() {
-        driver.navigate().refresh();
-    }
     public String getNewProfileName(){
-        WebElement profileNameText = driver.findElement(By.cssSelector("[class = 'view-profile']>span"));
+        WebElement profileNameText = waitUntilClickable(By.cssSelector("[class = 'view-profile']>span"));
         String newName = profileNameText.getText();
         return newName;
     }
