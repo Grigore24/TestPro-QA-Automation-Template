@@ -29,6 +29,7 @@ public class BaseTest {
 
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        openUrl();
     }
     @AfterMethod(alwaysRun = true)
     public void tearDown(){
@@ -72,5 +73,12 @@ public class BaseTest {
         Faker faker = new Faker(new Locale("en-US"));
         String newName = faker.address().cityName();
         return newName;
+    }
+
+    protected void searchForSong(String text) {
+        WebElement searchInput = driver.findElement(By.cssSelector("#searchForm>input"));
+        searchInput.click();
+        searchInput.clear();
+        searchInput.sendKeys(text);
     }
 }
