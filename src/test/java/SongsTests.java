@@ -12,49 +12,101 @@ public class SongsTests extends BaseTest {
     @Test
     public void addSongsToPlaylist() {
         String text = "Dark Days";
-        //step 1 - Open URL
-        openUrl();
+        String playlistName = generateRandomPlaylistName();
 
-        //step 2 - Log In
+        //step 1 - Log In
         logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
 
-        //step 3 - Find search input
-        WebElement searchInput = driver.findElement(By.cssSelector("#searchForm>input"));
-        searchInput.click();
-        searchInput.clear();
-        searchInput.sendKeys(text);
+        //step 2 - Find search input
+        searchForSong(text);
 
-        //step 4 - Click on VIEW ALL Button
+        //step 3 - Click on VIEW ALL Button
+        clickOnViewAllButton();
+
+        //step 4 - Click on the song in results
+        findSongInResults();
+
+        //step 5 - Click on ADD TO Button
+        clickAddToButton();
+
+        //step 6 - Click on New Playlist Name Input
+        sentNewPlaylistName(playlistName);
+
+        //step 7 - Assert is banner displayed and text Equals
+        Assert.assertTrue(isPlaylistSuccessBannerDisplayed());
+
+        //step 8 - songText Assert
+        Assert.assertEquals(text,getSongName());
+    }
+
+    @Test
+    public void playSong() {
+        //step 1  - Log in
+        logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
+
+        //step 2 - Find Play button and hover on it and click
+        hoverClickPlayButton();
+
+        //step 3 find pause button and assert
+        Assert.assertTrue(isPauseButtonDisplayed());
+
+        //step 4 find equalizer and assert
+        Assert.assertTrue(isEqualizerDisplayed());
+    }
+
+    //Methods addSongsToPlaylist test
+    //searchForSong(); I moved to BaseTest
+
+    private void clickOnViewAllButton() {
         WebElement viewAllButton = driver.findElement(By.cssSelector("button[data-test='view-all-songs-btn']"));
         viewAllButton.click();
+    }
 
-        //step 5 - Click on the song in results
+    private void findSongInResults() {
         List<WebElement> songInResults = driver.findElements(By.cssSelector(".search-results .song-item .title"));
         songInResults.get(0).click();
+    }
 
-        //step 6 - Click on ADD TO Button
+    private void clickAddToButton() {
         WebElement addToButton = driver.findElement(By.cssSelector(".btn-add-to"));
         addToButton.click();
+    }
 
-        //step 7 - Click on New Playlist Name Input
-        String name = generateRandomPlaylistName();
+    private void sentNewPlaylistName(String playlistName) {
         WebElement newPlaylistNameInput = driver.findElement(By.cssSelector("#songResultsWrapper > header  input[type=text]"));
         newPlaylistNameInput.click();
         newPlaylistNameInput.clear();
-        newPlaylistNameInput.sendKeys(name);
+        newPlaylistNameInput.sendKeys(playlistName);
 
         new Actions(driver)
                 .keyDown(Keys.ENTER)
                 .perform();
-
-        //step 8 - Assert is banner displayed and text Equals
+    }
+    public boolean isPlaylistSuccessBannerDisplayed(){
         WebElement newPlaylistSuccessBanner = driver.findElement(By.cssSelector("div[class='success show']"));
-        Assert.assertTrue(newPlaylistSuccessBanner.isDisplayed());
-
+        return newPlaylistSuccessBanner.isDisplayed();
+    }
+    public String getSongName(){
         WebElement songName = driver.findElement(By.cssSelector("#playlistWrapper .song-item .title"));
         String songText = songName.getText();
-        Assert.assertEquals(songText,text);
+        return songText;
+    }
 
+    //Methods playSong test
 
+    private void hoverClickPlayButton() {
+        WebElement buttonPlayOrResume = driver.findElement(By.cssSelector("[title='Play or resume']"));
+        new Actions(driver)
+                .moveToElement(buttonPlayOrResume)
+                .perform();
+        buttonPlayOrResume.click();
+    }
+    public boolean isPauseButtonDisplayed(){
+        WebElement pauseBtn = driver.findElement(By.cssSelector("[data-testid='pause-btn']"));
+        return pauseBtn.isDisplayed();
+    }
+    public boolean isEqualizerDisplayed(){
+        WebElement equalizer = driver.findElement(By.cssSelector("[alt='Sound bars']"));
+        return equalizer.isDisplayed();
     }
 }

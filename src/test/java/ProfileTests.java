@@ -4,33 +4,34 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ProfileTests extends BaseTest{
-    String name = generateRandomName();
     @Test
     public void changeProfileName(){
-        //step 1 - Open URL
-        openUrl();
+        String name = generateRandomName();
 
-        //step 2 - Log In
+        //step 1 - Log In
         logIn("grigore.crepciuc@testpro.io","te$t$tudent22");
 
-        //step 3 -Open profile
+        //step 2 -Open profile
         clickOnAvatar();
 
-        //step 4 -Type Password
+        //step 3 -Type Password
         typeCurrentProfilePassword();
 
-        //step 5 - Type new Name
+        //step 4 - Type new Name
         //Example String name = "Name" + getTimeStamp();
-        typeProfileName();
+        typeProfileName(name);
 
-        //step 6 - Type Email
+        //step 5 - Type Email
         typeProfileEmail();
 
-        //step 7 Click Save
+        //step 6 Click Save
         clickOnProfileSaveButton();
 
+        //step 7 Refresh Page
+        refreshPage();
+
         //step 8 Assert profile name is new
-        compareProfileNames();
+        Assert.assertEquals(name,getNewProfileName());
     }
 
     //Methods
@@ -45,7 +46,7 @@ public class ProfileTests extends BaseTest{
         currentPasswordInput.clear();
         currentPasswordInput.sendKeys("te$t$tudent22");
     }
-    private void typeProfileName() {
+    private void typeProfileName(String name) {
         System.out.println(name);
         WebElement profileNameInput = driver.findElement(By.cssSelector("#inputProfileName"));
         profileNameInput.click();
@@ -62,14 +63,12 @@ public class ProfileTests extends BaseTest{
         WebElement saveButton = driver.findElement(By.cssSelector("[class='btn-submit']"));
         saveButton.click();
     }
-    private void compareProfileNames() {
+    private void refreshPage() {
         driver.navigate().refresh();
-
+    }
+    public String getNewProfileName(){
         WebElement profileNameText = driver.findElement(By.cssSelector("[class = 'view-profile']>span"));
         String newName = profileNameText.getText();
-        Assert.assertEquals(newName,name);
-
+        return newName;
     }
-
-
 }
