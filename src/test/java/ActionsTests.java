@@ -6,7 +6,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pagesObjectsModel.HomePage;
+import pagesObjectsModel.LoginPage;
+import pagesObjectsModel.PlaylistPage;
+import pagesObjectsModel.SongsPage;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ActionsTests extends BaseTest {
@@ -14,11 +19,15 @@ public class ActionsTests extends BaseTest {
     public void playSongTest() {
         // hover over in clickPlayBtn
         //step 1 - Log in
-        logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
+        LoginPage loginPage = new LoginPage(driver);
+        HomePage homePage = new HomePage(driver);
+        // step -1 Log in
+        loginPage.logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
 
-        //step 2 -
-        clickFooterPlayBtn();
-        Assert.assertTrue(pauseBtnExists());
+        //step 2 - click On footer Play button
+        homePage.clickFooterPlayBtn();
+        // step 3 - Assert
+        Assert.assertTrue(homePage.pauseBtnExists());
 
         // Comparing numbers of elements example
         List<WebElement> songs = driver.findElements(By.cssSelector("[data-test='song-card']"));
@@ -38,102 +47,60 @@ public class ActionsTests extends BaseTest {
         System.out.println("Hello world");
         softAssert.assertAll();
     }
-    //M E T H O D S playSongTest
-
-    public void clickFooterPlayBtn() {
-        Actions action = new Actions(driver);
-        WebElement playBtn = driver.findElement(By.cssSelector("[data-testid='play-btn']"));
-        action
-                .moveToElement(playBtn)
-                .perform();
-        playBtn.click();
-    }
-    public boolean pauseBtnExists() {
-        return driver.findElement(By.cssSelector("[data-testid='pause-btn']")).isDisplayed();
-    }
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     public void renamePlaylist() throws InterruptedException {
         // double click
         String playlistName = "Summer songs";
-
-        logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
+        LoginPage loginPage = new LoginPage(driver);
+        PlaylistPage playlistPage = new PlaylistPage(driver);
+        //strp - 1 Log in
+        loginPage.logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
         Thread.sleep(2000);
-        doubleClickChoosePlaylist();
-        enterPlaylistName(playlistName);
-        String newName = getPlaylistName();
-        Assert.assertEquals(playlistName, newName, "=== PlaylistNames expected to be equals ===");
-    }
-    //METHODS renamePlaylist
-    public void doubleClickChoosePlaylist() {
-            WebElement playlistElement = presenceOfElementLocated(By.cssSelector(".playlist:nth-child(3)"));
-            Actions actions = new Actions(driver);
-            actions.doubleClick(playlistElement).
-                    perform();
-    }
-    public void enterPlaylistName(String name) {
-        WebElement playlistInputField = driver.findElement(By.cssSelector("input[name='name']"));
-        playlistInputField.sendKeys(Keys.HOME, Keys.chord(Keys.SHIFT, Keys.END), name);
-        playlistInputField.sendKeys(Keys.ENTER);
-    }
-    private String getPlaylistName() {
-        WebElement playlistElement = wait.until(ExpectedConditions.
-                visibilityOfElementLocated(By.cssSelector(".playlist:nth-child(3)>a")));
-        String name = playlistElement.getText();
-        return name;
+        //step - 2 DoubleClick on Playlist
+        playlistPage.doubleClickChoosePlaylist();
+        //step - 3 Enter Playlist name
+        playlistPage.enterPlaylistName(playlistName);
+        //steo - 4 get New name
+        playlistPage.getNewName();
+        // Assert
+        Assert.assertEquals(playlistName, playlistPage.getNewName(), "=== PlaylistNames expected to be equals ===");
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
     public void playSongFromListTest() {
-        logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
-        goToAllSongs();
-        // right click on first song
-        rightClickOnFirstSong();
-        // click play button
-        clickPlayBtn();
-        // verify
-        Assert.assertTrue(isEqualizerDisplayed());
+        LoginPage loginPage = new LoginPage(driver);
+        SongsPage songsPage = new SongsPage(driver);
+        HomePage homePage = new HomePage(driver);
+        // step - 1 Log in
+        loginPage.logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
+        // step 2 - go to all Songs
+        songsPage.goToAllSongs();
+        // step - 3 right click on first song
+        songsPage.rightClickOnFirstSong();
+        // step - 4 click play button
+        songsPage.clickPlayBtn();
+        // step 5- Assert
+        Assert.assertTrue(homePage.isEqualizerDisplayed());
     }
 
-    //METHODS playSongFromListTest
-
-    private void goToAllSongs() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".songs"))).click();
-    }
-
-    private void rightClickOnFirstSong() {
-        WebElement firstSong = driver.findElement(By.cssSelector(".song-item"));
-        Actions actions = new Actions(driver);
-        actions.contextClick(firstSong).perform();
-    }
-    private void clickPlayBtn() {
-        WebElement playBtn = driver.findElement(By.cssSelector(".playback"));
-        playBtn.click();
-    }
-
-    private boolean isEqualizerDisplayed() {
-        return driver.findElement(By.cssSelector("[data-testid='sound-bar-play']")).isDisplayed();
-    }
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Test
-    public void countSongsInPlaylist() {
-
-        logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
-        choosePlaylistByName("Lebanon");
+    public void countSongsInPlaylist() throws InterruptedException {
+        LoginPage loginPage = new LoginPage(driver);
+        PlaylistPage playlistPage = new PlaylistPage(driver);
+        SongsPage songsPage = new SongsPage(driver);
+        //step -1 Log in
+        loginPage.logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
+        //step -2 Choose Playlist by name
+        Thread.sleep(2000);
+        playlistPage.choosePlaylistByName("Lebanon");
         //WebElement playlist = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".playlist:nth-child(4)")));
        // playlist.click();
-        List<WebElement> songs = driver.findElements(By.cssSelector("#playlistWrapper .song-item"));
-        int number = songs.size();
-        Assert.assertEquals(number, 2); // can fail, depends on current number. This is just an example
 
-
+        Assert.assertEquals(songsPage.getSongsSize(), 2); // can fail, depends on current number. This is just an example
     }
-    public void choosePlaylistByName(String playlistName){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(), '"+playlistName+"')]"))).click();
-    }
-
 }

@@ -1,8 +1,8 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pagesObjectsModel.HomePage;
+import pagesObjectsModel.LoginPage;
 
 public class LoginTests extends BaseTest {
     @DataProvider(name="IncorrectLoginProviders")
@@ -16,65 +16,50 @@ public class LoginTests extends BaseTest {
 
     @Test(dataProvider = "IncorrectLoginProviders")
     public void negativeLoginTests(String email, String password) throws InterruptedException {
+        LoginPage loginPage = new LoginPage(driver);
         String url = "https://qa.koel.app/";
         //step 1 - enter Email
-        enterEmail(email);
+        loginPage.enterEmail(email);
         //step 2 - enter Password
-        enterPassword(password);
+        loginPage.enterPassword(password);
         //step 3 - Click on Login Button
-        clickLoginButton();
+        loginPage.clickLoginButton();
         //step 4 - Assert
         Thread.sleep(3000);
-        Assert.assertEquals(getLoginURL(), url);
+        Assert.assertEquals(loginPage.getLoginURL(), url);
     }
     @Test
     public void loginEmptyPasswordTest() {
-        String url = "https://qa.koel.app/";
-        //step 1 - Open URL
-        openUrl();
-        //step 2 - Enter Email
-        enterEmail("grigore.crepciuc@testpro.io");
-        //step 3 - Enter Password
-        enterPassword("");
-        //step 4 - Assert
-        Assert.assertEquals(getLoginURL(), url);
+        LoginPage loginPage = new LoginPage(driver);
+        //step 1 - Enter Email
+        loginPage.enterEmail("grigore.crepciuc@testpro.io");
+        //step 2 - Enter Password
+        loginPage.enterPassword("");
+        //step 3 - Assert
+        Assert.assertEquals(loginPage.getLoginURL(), url);
     }
 
     @Test
     public void loginSuccessTest() {
-
+        LoginPage loginPage = new LoginPage(driver);
+        HomePage homePage = new HomePage(driver);
         //step 1 - Log in
-        logIn("grigore.crepciuc@testpro.io","te$t$tudent22");
+        loginPage.logIn("grigore.crepciuc@testpro.io","te$t$tudent22");
 
         //step 2 - Find Avatar on Mane Page and Assert
-        Assert.assertTrue(isAvatarDisplayed());
+        Assert.assertTrue(homePage.isAvatarDisplayed());
     }
 
     @Test
     public void loginInvalidEmailValidPassword() {
+        LoginPage loginPage = new LoginPage(driver);
         //step 1 - Enter Email
-        enterEmail("pgrigore.crepciuc@testpro.io");
+        loginPage.enterEmail("pgrigore.crepciuc@testpro.io");
         //step 2 - Enter Password
-        enterPassword("te$t$tudent22");
+        loginPage.enterPassword("te$t$tudent22");
         //step 3 - Click on Login Button
-        clickLoginButton();
+        loginPage.clickLoginButton();
         //step 5 - Assert
-        Assert.assertTrue(isLoginButtonDisplayed());
+        Assert.assertTrue(loginPage.isLoginButtonDisplayed());
     }
-
-    //Methods
-
-    public boolean isAvatarDisplayed() {
-        WebElement avatar = waitUntilClickable(By.cssSelector(".avatar"));
-        return avatar.isDisplayed();
-    }
-    public boolean isLoginButtonDisplayed() {
-        WebElement loginButton = waitUntilClickable(By.cssSelector("[type='submit"));
-        return loginButton.isDisplayed();
-    }
-    public String getLoginURL(){
-        String newURL = driver.getCurrentUrl();
-        return newURL;
-    }
-
 }

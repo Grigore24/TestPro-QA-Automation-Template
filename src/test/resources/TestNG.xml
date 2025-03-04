@@ -19,6 +19,7 @@
             <class name="PlayListTests"/>
             <class name="ActionsTests"/>
             <class name="DragAndDropExample"/>
+            <class name="helpers.BrowserFabric"/>
             <!-- <class name="UnitTests"/> -->
         </classes>
     </test>
