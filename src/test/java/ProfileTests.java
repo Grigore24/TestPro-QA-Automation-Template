@@ -8,10 +8,10 @@ import pagesObjectsModel.ProfilePage;
 public class ProfileTests extends BaseTest{
     @Test
     public void changeProfileName(){
-        LoginPage loginPage = new LoginPage(driver);
-        BasePage basePage = new BasePage(driver);
-        HomePage homePage = new HomePage(driver);
-        ProfilePage profilePage = new ProfilePage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        BasePage basePage = new BasePage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
+        ProfilePage profilePage = new ProfilePage(getDriver());
         String name = basePage.generateRandomName();
 
         //step 1 - Log In

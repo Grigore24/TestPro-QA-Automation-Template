@@ -10,9 +10,9 @@ public class PlayListTests extends BaseTest {
 
     @Test
     public void deletePlaylist() throws InterruptedException {
-        LoginPage loginPage = new LoginPage(driver);
-        PlaylistPage playlistPage = new PlaylistPage(driver);
-        BasePage basePage = new BasePage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        PlaylistPage playlistPage = new PlaylistPage(getDriver());
+        BasePage basePage = new BasePage(getDriver());
         String playlist = playlistPage.generateRandomPlaylistName();
         //create Playlist
         //step 1 - Log in

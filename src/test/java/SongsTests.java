@@ -15,10 +15,10 @@ public class SongsTests extends BaseTest {
 
     @Test
     public void addSongsToPlaylist() {
-        LoginPage loginPage = new LoginPage(driver);
-        PlaylistPage playlistPage = new PlaylistPage(driver);
-        SongsPage songsPage = new SongsPage(driver);
-        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        PlaylistPage playlistPage = new PlaylistPage(getDriver());
+        SongsPage songsPage = new SongsPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
         String text = "Dark Days";
         String playlistName = playlistPage.generateRandomPlaylistName();
         //step 1 - Log In
@@ -48,8 +48,8 @@ public class SongsTests extends BaseTest {
 
     @Test
     public void playSong() {
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
 
         //step 1  - Log in
         loginPage.logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");

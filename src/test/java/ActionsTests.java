@@ -19,8 +19,8 @@ public class ActionsTests extends BaseTest {
     public void playSongTest() {
         // hover over in clickPlayBtn
         //step 1 - Log in
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
         // step -1 Log in
         loginPage.logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
 
@@ -30,7 +30,7 @@ public class ActionsTests extends BaseTest {
         Assert.assertTrue(homePage.pauseBtnExists());
 
         // Comparing numbers of elements example
-        List<WebElement> songs = driver.findElements(By.cssSelector("[data-test='song-card']"));
+        List<WebElement> songs = getDriver().findElements(By.cssSelector("[data-test='song-card']"));
 
         int songsNumberBefore = songs.size();
         System.out.println(songsNumberBefore);
@@ -42,7 +42,7 @@ public class ActionsTests extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(songsNumberBefore == songsNumberAfter,
                 "=== Songs number before should be equal songs number after ===");
-        softAssert.assertEquals(driver.getCurrentUrl(), "https://qa.koel.app/#!/queue");
+        softAssert.assertEquals(getDriver().getCurrentUrl(), "https://qa.koel.app/#!/queue");
         https://qa.koel.app/#!/home
         System.out.println("Hello world");
         softAssert.assertAll();
@@ -53,8 +53,8 @@ public class ActionsTests extends BaseTest {
     public void renamePlaylist() throws InterruptedException {
         // double click
         String playlistName = "Summer songs";
-        LoginPage loginPage = new LoginPage(driver);
-        PlaylistPage playlistPage = new PlaylistPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        PlaylistPage playlistPage = new PlaylistPage(getDriver());
         //strp - 1 Log in
         loginPage.logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
         Thread.sleep(2000);
@@ -71,9 +71,9 @@ public class ActionsTests extends BaseTest {
 
     @Test
     public void playSongFromListTest() {
-        LoginPage loginPage = new LoginPage(driver);
-        SongsPage songsPage = new SongsPage(driver);
-        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        SongsPage songsPage = new SongsPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
         // step - 1 Log in
         loginPage.logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
         // step 2 - go to all Songs
@@ -90,9 +90,9 @@ public class ActionsTests extends BaseTest {
 
     @Test
     public void countSongsInPlaylist() throws InterruptedException {
-        LoginPage loginPage = new LoginPage(driver);
-        PlaylistPage playlistPage = new PlaylistPage(driver);
-        SongsPage songsPage = new SongsPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        PlaylistPage playlistPage = new PlaylistPage(getDriver());
+        SongsPage songsPage = new SongsPage(getDriver());
         //step -1 Log in
         loginPage.logIn("grigore.crepciuc@testpro.io", "te$t$tudent22");
         //step -2 Choose Playlist by name

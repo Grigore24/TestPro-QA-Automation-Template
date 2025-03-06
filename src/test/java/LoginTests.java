@@ -16,7 +16,7 @@ public class LoginTests extends BaseTest {
 
     @Test(dataProvider = "IncorrectLoginProviders")
     public void negativeLoginTests(String email, String password) throws InterruptedException {
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
         String url = "https://qa.koel.app/";
         //step 1 - enter Email
         loginPage.enterEmail(email);
@@ -30,7 +30,7 @@ public class LoginTests extends BaseTest {
     }
     @Test
     public void loginEmptyPasswordTest() {
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
         //step 1 - Enter Email
         loginPage.enterEmail("grigore.crepciuc@testpro.io");
         //step 2 - Enter Password
@@ -41,8 +41,8 @@ public class LoginTests extends BaseTest {
 
     @Test
     public void loginSuccessTest() {
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
         //step 1 - Log in
         loginPage.logIn("grigore.crepciuc@testpro.io","te$t$tudent22");
 
@@ -52,7 +52,7 @@ public class LoginTests extends BaseTest {
 
     @Test
     public void loginInvalidEmailValidPassword() {
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
         //step 1 - Enter Email
         loginPage.enterEmail("pgrigore.crepciuc@testpro.io");
         //step 2 - Enter Password
