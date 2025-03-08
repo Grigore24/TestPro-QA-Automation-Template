@@ -10,6 +10,7 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 public class BaseTest {
     private static WebDriver driver = null;
     public static WebDriverWait wait = null;
-    public static String url = "https://qa.koel.app/";
+   // public static String url = "https://qa.koel.app/";
     private static final ThreadLocal<WebDriver> THREAD_LOCAL = new ThreadLocal<>();
 
     public static WebDriver getDriver() {
@@ -31,7 +32,8 @@ public class BaseTest {
 //        WebDriverManager.chromedriver().setup();
 //    }
     @BeforeMethod
-    public void setUpBrowser() throws MalformedURLException {
+    @Parameters("baseUrl")
+    public void setUpBrowser(String url) throws MalformedURLException {
 
         driver = pickBrowser(System.getProperty("browser"));
         THREAD_LOCAL.set(driver);
