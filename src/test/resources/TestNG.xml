@@ -12,15 +12,16 @@
                      <!--    </include>-->
                   <!--   </methods>-->
             <!-- </class>-->
-            <class name="LoginTests"/>
-            <class name="SongsTests"/>
+<!--            <class name="LoginTests"/>-->
+<!--            <class name="SongsTests"/>-->
             <class name="BaseTest"/>
-            <class name="ProfileTests"/>
-            <class name="CSVDataProviderTest"/>
-            <class name="PlayListTests"/>
-            <class name="ActionsTests"/>
-            <class name="DragAndDropExample"/>
-            <class name="helpers.BrowserFabric"/>
+<!--            <class name="ProfileTests"/>-->
+<!--            <class name="CSVDataProviderTest"/>-->
+<!--            <class name="PlayListTests"/>-->
+<!--            <class name="ActionsTests"/>-->
+<!--            <class name="DragAndDropExample"/>-->
+<!--            <class name="helpers.BrowserFabric"/>-->
+            <class name="CucumberRunner"/>
             <!-- <class name="UnitTests"/> -->
         </classes>
     </test>
