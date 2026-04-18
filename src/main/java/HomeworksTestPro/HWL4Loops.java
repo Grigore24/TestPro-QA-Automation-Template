@@ -64,6 +64,12 @@ public class HWL4Loops {
         for (String dayWeek : daysOfWeek){
             System.out.println(dayWeek);
         }
+        for (int j = 1; j <=12; j++) {
+            System.out.println(j);
+            for (int l = 1; l <= 12; l++) {
+                System.out.print(j * l + " ");
+            }
+        }
     }
     //перезапуск
 
