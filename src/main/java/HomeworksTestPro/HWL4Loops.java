@@ -67,11 +67,23 @@ public class HWL4Loops {
         for (int j = 1; j <=12; j++) {
             System.out.println(j);
             for (int l = 1; l <= 12; l++) {
-                System.out.print(j * l + " ");
+                System.out.print(j * l + "  ");
             }
         }
-    }
+        System.out.println("Pro");
+
+        int[] numbers = {1,2,3,4,5,6,7,8,9,10,11,12};
+        for(int v : numbers) {
+            for(int w : numbers) {
+                System.out.printf("%5d", (v*w));
+            }
+            System.out.println();
+        }
+            }
+        }
+
+
     //перезапуск
 
-}
+
 // git pull
