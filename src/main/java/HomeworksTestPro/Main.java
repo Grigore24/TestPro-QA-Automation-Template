@@ -19,7 +19,7 @@ firstDog.printName(firstDog.name);
 
 firstDog.isDogNameBobik();
         System.out.println(firstDog.isDogNameBobik());
-        //
+        //comment
 
 
     }
