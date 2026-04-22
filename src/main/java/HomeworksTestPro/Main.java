@@ -20,7 +20,19 @@ firstDog.printName(firstDog.name);
 firstDog.isDogNameBobik();
         System.out.println(firstDog.isDogNameBobik());
         //comment
+//        CatL7Methods firstCat = new CatL7Methods();
+//        CatL7Methods.skreem();
+//        firstCat.skreem();
+//        firstCat.legs = 8;
+//        firstCat.skreem();
+        // Konstruktor
+        CatL7Methods brownCat = new CatL7Methods("Hipe","Briton","Red",7);
+        System.out.println(brownCat.color);
 
+        //Getters & Setters
+        L8Getters firstLion = new L8Getters();
+        firstLion.setName("Simba");
+        System.out.println(firstLion.getName());
 
     }
 }
